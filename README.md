@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # The Wedding Shop Assignment
 Simple E-commerce website that allows couples to prepare their wedding gift list and guests to purchase the items from the list.
 
@@ -30,3 +31,6 @@ Run the project with this command
 ```
 $ python manage.py runserver
 ```
+=======
+# heroku_deployment
+>>>>>>> 7321c9f1a7595872d53e0f65eeff4e2d4f05d833
