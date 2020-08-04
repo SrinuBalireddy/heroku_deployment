@@ -1,0 +1,63 @@
+{% extends 'prezola/base.html' %}
+{% block content %}
+
+<h6 class="text-danger"><strong>To be Purchased Gifts</strong> </h6>
+<br>
+{% if to_be_purchased_items %}
+<table class="table table-responsive table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for line_item in to_be_purchased_items %}
+    {% if line_item.status == 'Pending' %}
+        <tr>
+          <td>{{ line_item.product.name }}</td>
+          <td>{{ line_item.product.brand }}</td>
+          <td>{{ line_item.product.price }} GBP</td>
+          <td>{{ line_item.quantity }}</td>
+        </tr>
+    {% endif %}
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h6> No products to display</h6>
+{% endif %}
+
+
+<hr>
+<h6 class="text-success"><strong>Purchased Gifts</strong></h6>
+<br>
+{% if purchased_items %}
+<table class="table table-responsive table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Brand</th>
+      <th scope="col">Price</th>
+      <th scope="col">Purchased Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for line_item in purchased_items %}
+        <tr>
+          <td>{{ line_item.product.name }}</td>
+          <td>{{ line_item.product.brand }}</td>
+          <td>{{ line_item.product.price }} GBP</td>
+          <td>{{ line_item.quantity_purchased }}</td>
+        </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h6> We are waiting to process your first order!</h6>
+{% endif %}
+
+{% endblock content %}

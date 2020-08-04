@@ -1,0 +1,66 @@
+{% extends 'prezola/base.html' %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'shop' %}">&#x2190; Continue Shopping</a>
+                <br>
+                <br>
+                <table class="table">
+					<tr>
+						<th>
+                            {% if user.is_authenticated %}
+							    <a  style="float:right; margin:5px;" class="btn btn-success" href="{% url 'mylist' user.id %}">Generate your List</a>
+                            {% else %}
+                                <a  style="float:right; margin:5px;" class="btn btn-success" href="#">Checkout</a>
+                            {% endif %}
+						</th>
+					</tr>
+				</table>
+
+            </div>
+            <br>
+            <div class="box-element">
+				<div class="cart-row">
+					<div style="flex:2"></div>
+					<div style="flex:2"><strong>Item</strong></div>
+					<div style="flex:1"><strong>Price</strong></div>
+					<div style="flex:1"><strong>Quantity</strong></div>
+                    <div style="flex:1"><strong>Purchased Quantity</strong></div>
+                    <div style="flex:1"><strong>Status</strong></div>
+					<div style="flex:1"><strong>Total</strong></div>
+				</div>
+                {% for lineitem in lineitems %}
+                    <div class="cart-row">
+                        <div style="flex:2"><img class="row-image" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ni9wrTOcDI0OozrKeyVkWAHaE7%26pid%3DApi&f=1"></div>
+                        <div style="flex:2"><p>{{ lineitem.product.name }}</p></div>
+                        <div style="flex:1"><p>{{ lineitem.product.price|floatformat:2 }} GBP</p></div>
+                        <div style="flex:1">
+                            <p class="quantity">{{ lineitem.quantity }}</p>
+                            <div class="quantity">
+                                <a class="chg-quantity update-cart" href="{% url 'add_remove_products' lineitem.product.id 'cart_added' %}">
+                                    <img class="chg-quantity update-cart" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.hS2mXknoHeNU9UtzmnD-iwHaHa%26pid%3DApi&f=1">
+                                </a>
+                                <a {% if lineitem.quantity == 0 or lineitem.status == "Complete" %}  id="EditDisable" {% endif %} class="chg-quantity update-cart" href="{% url 'add_remove_products' lineitem.product.id 'cart_removed' %}">
+                                    <img class="chg-quantity update-cart" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.v8U7amvuGgsTXd3XndhGjQHaHa%26pid%3DApi&f=1">
+                                </a>
+                            </div>
+                        </div>
+                        <div style="flex:1"><p>{{ lineitem.quantity_purchased }}</p></div>
+                        <div style="flex:1"><p>{{ lineitem.status }}</p></div>
+                        {% if lineitem.get_total == 0 %}
+                            <div style="flex:1"><p></p></div>
+                        {% else %}
+                            <div style="flex:1"><p>{{ lineitem.get_total }} GBP</p></div>
+                        {% endif %}
+                    </div>
+				{% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}

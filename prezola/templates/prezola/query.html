@@ -1,0 +1,26 @@
+{% extends 'prezola/base.html' %}
+{% block content %}
+
+<div class="home">
+<div class ="content-section">
+                <form method ="POST">
+                        {% csrf_token %}
+                        <fieldset class ="form-group">
+                                <legend class="border-bottom mb-4">Search with the name</legend>
+                        </fieldset>
+
+                                <input type="text" id ="textbox" class="form-control mb-2 mr-sm-2"  name="name" placeholder="Eg. Type admin">
+                                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+
+                </form>
+                <br>
+                        {% if customer %}
+                            {% for cust in customer %}
+                                <h5><a href="{% url 'mylist' cust.user.id %}">{{ cust.user|title }} - click here to purchase the products</a></h5>
+                            {% endfor %}
+                        {% endif %}
+
+</div>
+</div>
+
+{% endblock %}

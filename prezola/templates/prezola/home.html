@@ -1,0 +1,22 @@
+{% extends 'prezola/base.html' %}
+{% block content %}
+
+<div class ="home">
+    {% if user.is_authenticated %}
+        <a class="btn btn-success mr-4" href="{% url 'shop' %}">Make my wishlist</a>
+        <a class="btn btn-success ml-4" href="{% url 'mylist' user.id %}">View my list</a>
+        <hr>
+        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.D3rSzu4npQPVbLfaiCfQJAHaCY%26pid%3DApi&f=1">
+    {% else %}
+        <a class="btn btn-success mr-4" href="{% url 'login' %}">Make my wishlist</a>
+        <a class="btn btn-success ml-4" href="{% url 'buy' %}">Buy Gift!</a>
+        <hr>
+        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.D3rSzu4npQPVbLfaiCfQJAHaCY%26pid%3DApi&f=1">
+
+    {% endif %}
+
+</div>
+
+
+
+{% endblock content %}
